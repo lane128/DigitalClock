@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+
+	<body>
+		<canvas id="clock" width="500px" height="200px">
+			您的浏览器太古董了，升级吧！
+		</canvas>
+		<script type="text/javascript">
+			var clock = document.getElementById("clock");
+			var cxt = clock.getContext("2d");
+			var drawLineLen = 50;
+			var lineWidth = 10;
+			var marginX = 10;
+			var marginY = 10;
+
+			function drawHorizontalLine(x, y) {
+				cxt.lineWidth = lineWidth;
+				cxt.strokeStyle = "#000";
+				cxt.beginPath();
+				cxt.moveTo(x, y);
+				cxt.lineTo(x + drawLineLen, y);
+				cxt.closePath();
+				cxt.stroke();
+			};
+
+			function drawVerticalLine(x, y) {
+				cxt.lineWidth = lineWidth;
+				cxt.strokeStyle = "#000";
+				cxt.beginPath();
+				cxt.moveTo(x, y);
+				cxt.lineTo(x, y + drawLineLen);
+				cxt.closePath();
+				cxt.stroke();
+			};
+
+			function digital(x, y) {
+				function line1() {
+					var _x = x + lineWidth;
+					var _y = y;
+					drawHorizontalLine(_x, _y)
+				};
+
+				function line1() {
+					var _x = x + lineWidth;
+					var _y = y + lineWidth / 2;
+					drawHorizontalLine(_x, _y)
+				};
+
+				function line2() {
+					var _x = x + lineWidth / 2;
+					var _y = y + lineWidth;
+					drawVerticalLine(_x, _y)
+				};
+
+				function line3() {
+					var _x = x + lineWidth + lineWidth / 2 + drawLineLen;
+					var _y = y + lineWidth;
+					drawVerticalLine(_x, _y)
+				};
+
+				function line4() {
+					var _x = x + lineWidth;
+					var _y = y + lineWidth + drawLineLen + lineWidth / 2;
+					drawHorizontalLine(_x, _y)
+				};
+
+				function line5() {
+					var _x = x + lineWidth / 2;
+					var _y = y + 2 * lineWidth + drawLineLen;
+					drawVerticalLine(_x, _y)
+				};
+
+				function line6() {
+					var _x = x + lineWidth + drawLineLen + lineWidth / 2;
+					var _y = y + 2 * lineWidth + drawLineLen;
+					drawVerticalLine(_x, _y)
+				};
+
+				function line7() {
+					var _x = x + lineWidth;
+					var _y = y + 2 * lineWidth + 2 * drawLineLen + lineWidth / 2;
+					drawHorizontalLine(_x, _y)
+				};
+				//				line1();
+				//				line2();
+				//				line3();
+				//				line4();
+				//				line5();
+				//				line6();
+				//				line7();
+				function one() {
+					line3();
+					line6();
+				};
+
+				function two() {
+					line1();
+					line3();
+					line4();
+					line5();
+					line7();
+				};
+
+				function three() {
+					line1();
+					line3();
+					line4();
+					line6();
+					line7();
+				};
+
+				function four() {
+					line2();
+					line4();
+					line3();
+					line6();
+				};
+
+				function five() {
+					line1();
+					line2();
+					line4();
+					line6();
+					line7();
+				};
+
+				function six() {
+					line1();
+					line2();
+					line4();
+					line6();
+					line7();
+					line5();
+				};
+
+				function seven() {
+					line1();
+					line3();
+					line6();
+				};
+
+				function eight() {
+					line1();
+					line2();
+					line3();
+					line4();
+					line5();
+					line6();
+					line7();
+				};
+
+				function nine() {
+					line1();
+					line2();
+					line3();
+					line4();
+					line6();
+					line7();
+				};
+
+				function zero() {
+					line1();
+					line2();
+					line3();
+					line5();
+					line6();
+					line7();
+				};
+
+				function number(n) {
+					switch (n) {
+						case 0:
+							zero();
+							break;
+						case 1:
+							one();
+							break;
+						case 2:
+							two();
+							break;
+						case 3:
+							three();
+							break;
+						case 4:
+							four();
+							break;
+						case 5:
+							five();
+							break;
+						case 6:
+							six();
+							break;
+						case 7:
+							seven();
+							break;
+						case 8:
+							eight();
+							break;
+						case 9:
+							nine();
+							break;
+					}
+				}
+
+				function randomNum() {
+						cxt.clearRect(0,0,500,200);
+						var num=Math.round(Math.random()*10);
+						console.log(num);
+						number(num);
+				}
+				randomNum();
+			};
+		    setInterval("digital(10,10)",1000);
+		</script>
+	</body>
+
+</html>
