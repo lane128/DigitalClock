@@ -17,7 +17,10 @@
 			var lineWidth = 10;
 			var marginX = 10;
 			var marginY = 10;
-			var numMarign = 5 * lineWidth + drawLineLen;
+			var numMarign = 3 * lineWidth + drawLineLen;
+			var numWidth = 2 * lineWidth + drawLineLen;
+			var numHeight = 3 * lineWidth + 2 * drawLineLen;
+			var divPoint = 2 * lineWidth;
 			 //drwaH line
 			function drawHorizontalLine(x, y) {
 				cxt.lineWidth = lineWidth;
@@ -38,7 +41,17 @@
 				cxt.closePath();
 				cxt.stroke();
 			};
-			 //init a digital number on canvas by setting the x,y location.
+			 //draw points
+			function point(x, y) {
+				cxt.lineWidth = 5;
+				cxt.strokeStyle = "#000";
+				cxt.fillStyle = "#000";
+				cxt.beginPath();
+				cxt.arc(x, y, 3, 0, 360, false);
+				cxt.fill();
+				cxt.closePath();
+				cxt.stroke();
+			}; //init a digital number on canvas by setting the x,y location.
 			function digital(x, y) {
 				function line1() {
 					var _x = x + lineWidth;
@@ -203,24 +216,31 @@
 				};
 
 				function randomNum() {
-					cxt.clearRect(x, y, 2*lineWidth+drawLineLen, 3*lineWidth+2*drawLineLen);
+					cxt.clearRect(x, y, 2 * lineWidth + drawLineLen, 3 * lineWidth + 2 * drawLineLen);
 					var num = Math.round(Math.random() * 9);
 					console.log(num);
 					number(num);
-				}
-				
+				};
 				randomNum();
+			};
+
+			function drawPoints() {
+				point(marginX + 2 * numWidth + 3 * divPoint / 2, 0.4 * numHeight);
+				point(marginX + 2 * numWidth + 3 * divPoint / 2, 0.7 * numHeight);
+				point(marginX + 4 * numWidth + 7 * divPoint / 2, 0.4 * numHeight);
+				point(marginX + 4 * numWidth + 7 * divPoint / 2, 0.7 * numHeight);
 			};
 
 			function Initclock() {
 				digital(marginX, marginY);
 				digital(marginX + numMarign, marginY);
-				digital(marginX + 2 * numMarign, marginY);
-				digital(marginX + 3 * numMarign, marginY);
-				digital(marginX + 4 * numMarign, marginY);
-				digital(marginX + 5 * numMarign, marginY);
+				digital(marginX + 2 * numMarign + divPoint, marginY);
+				digital(marginX + 3 * numMarign + divPoint, marginY);
+				digital(marginX + 4 * numMarign + 2 * divPoint, marginY);
+				digital(marginX + 5 * numMarign + 2 * divPoint, marginY);
+				drawPoints();
 			};
-			//var func = "digital(" + marginX + "," + marginY + ")";
+			 //var func = "digital(" + marginX + "," + marginY + ")";
 			setInterval("Initclock()", 1000);
 		</script>
 	</body>
