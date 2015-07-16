@@ -3,7 +3,8 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<script type="text/javascript" src="DClock.js"></script>
+		<title>DClock</title>
 	</head>
 
 	<body>
@@ -11,251 +12,22 @@
 			您的浏览器太古董了，升级吧！
 		</canvas>
 		<script type="text/javascript">
-			var clock = document.getElementById("clock");
-			var cxt = clock.getContext("2d");
-			var drawLineLen = 50;
-			var lineWidth = 8;
-			var marginX = 10;
-			var marginY = 10;
-			var numMarign = 3 * lineWidth + drawLineLen;
-			var numWidth = 2 * lineWidth + drawLineLen;
-			var numHeight = 3 * lineWidth + 2 * drawLineLen;
-			var divPoint = 2 * lineWidth;
-			 //drwaH line
-			function drawHorizontalLine(x, y) {
-				cxt.lineWidth = lineWidth;
-				cxt.strokeStyle = "#000";
-				cxt.beginPath();
-				cxt.moveTo(x, y);
-				cxt.lineTo(x + drawLineLen, y);
-				cxt.closePath();
-				cxt.stroke();
-			};
-			 //drawV line
-			function drawVerticalLine(x, y) {
-				cxt.lineWidth = lineWidth;
-				cxt.strokeStyle = "#000";
-				cxt.beginPath();
-				cxt.moveTo(x, y);
-				cxt.lineTo(x, y + drawLineLen);
-				cxt.closePath();
-				cxt.stroke();
-			};
-			 //draw points
-			function point(x, y) {
-				cxt.lineWidth = 1;
-				cxt.strokeStyle = "#000";
-				cxt.fillStyle = "#000";
-				cxt.beginPath();
-				cxt.arc(x, y, lineWidth / 2, 0, 360, false);
-				cxt.fill();
-				cxt.closePath();
-				cxt.stroke();
-			};
-			 //get datetime and setting the number
-			function showTime() {
-				var time = new Date();
-				var hh = time.getHours();
-				var mm = time.getMinutes();
-				var ss = time.getSeconds();
-				var h2 = hh % 10;
-				var h1 = (hh - h2)/10;
-				var m2 = mm % 10;
-				var m1 = (mm - m2)/10;
-				var s2 = ss % 10;
-				var s1 = (ss - s2)/10;
-				return [h1, h2, m1, m2, s1, s2];
-			};
-			 //init a digital number on canvas by setting the x,y location.
-			function digital(x, y, num) {
-				function line1() {
-					var _x = x + lineWidth;
-					var _y = y;
-					drawHorizontalLine(_x, _y)
-				};
-
-				function line1() {
-					var _x = x + lineWidth;
-					var _y = y + lineWidth / 2;
-					drawHorizontalLine(_x, _y)
-				};
-
-				function line2() {
-					var _x = x + lineWidth / 2;
-					var _y = y + lineWidth;
-					drawVerticalLine(_x, _y)
-				};
-
-				function line3() {
-					var _x = x + lineWidth + lineWidth / 2 + drawLineLen;
-					var _y = y + lineWidth;
-					drawVerticalLine(_x, _y)
-				};
-
-				function line4() {
-					var _x = x + lineWidth;
-					var _y = y + lineWidth + drawLineLen + lineWidth / 2;
-					drawHorizontalLine(_x, _y)
-				};
-
-				function line5() {
-					var _x = x + lineWidth / 2;
-					var _y = y + 2 * lineWidth + drawLineLen;
-					drawVerticalLine(_x, _y)
-				};
-
-				function line6() {
-					var _x = x + lineWidth + drawLineLen + lineWidth / 2;
-					var _y = y + 2 * lineWidth + drawLineLen;
-					drawVerticalLine(_x, _y)
-				};
-
-				function line7() {
-					var _x = x + lineWidth;
-					var _y = y + 2 * lineWidth + 2 * drawLineLen + lineWidth / 2;
-					drawHorizontalLine(_x, _y)
-				};
-				//draw digital number 
-				function one() {
-					line3();
-					line6();
-				};
-
-				function two() {
-					line1();
-					line3();
-					line4();
-					line5();
-					line7();
-				};
-
-				function three() {
-					line1();
-					line3();
-					line4();
-					line6();
-					line7();
-				};
-
-				function four() {
-					line2();
-					line4();
-					line3();
-					line6();
-				};
-
-				function five() {
-					line1();
-					line2();
-					line4();
-					line6();
-					line7();
-				};
-
-				function six() {
-					line1();
-					line2();
-					line4();
-					line6();
-					line7();
-					line5();
-				};
-
-				function seven() {
-					line1();
-					line3();
-					line6();
-				};
-
-				function eight() {
-					line1();
-					line2();
-					line3();
-					line4();
-					line5();
-					line6();
-					line7();
-				};
-
-				function nine() {
-					line1();
-					line2();
-					line3();
-					line4();
-					line6();
-					line7();
-				};
-
-				function zero() {
-					line1();
-					line2();
-					line3();
-					line5();
-					line6();
-					line7();
-				};
-
-				function number(n) {
-					switch (n) {
-						case 0:
-							zero();
-							break;
-						case 1:
-							one();
-							break;
-						case 2:
-							two();
-							break;
-						case 3:
-							three();
-							break;
-						case 4:
-							four();
-							break;
-						case 5:
-							five();
-							break;
-						case 6:
-							six();
-							break;
-						case 7:
-							seven();
-							break;
-						case 8:
-							eight();
-							break;
-						case 9:
-							nine();
-							break;
-					}
-				};
-
-				function showAnumber() {
-					cxt.clearRect(x, y, 2 * lineWidth + drawLineLen, 3 * lineWidth + 2 * drawLineLen);
-					number(num);
-				};
-				showAnumber();
-			};
-
-			function drawPoints() {
-				point(marginX + 2 * numWidth + 3 * divPoint / 2, 0.4 * numHeight);
-				point(marginX + 2 * numWidth + 3 * divPoint / 2, 0.7 * numHeight);
-				point(marginX + 4 * numWidth + 7 * divPoint / 2, 0.4 * numHeight);
-				point(marginX + 4 * numWidth + 7 * divPoint / 2, 0.7 * numHeight);
-			};
-
-			function Initclock() {
-				var numlist = showTime();
-				console.log(numlist);
-				digital(marginX, marginY, numlist[0]);
-				digital(marginX + numMarign, marginY, numlist[1]);
-				digital(marginX + 2 * numMarign + divPoint, marginY, numlist[2]);
-				digital(marginX + 3 * numMarign + divPoint, marginY, numlist[3]);
-				digital(marginX + 4 * numMarign + 2 * divPoint, marginY, numlist[4]);
-				digital(marginX + 5 * numMarign + 2 * divPoint, marginY, numlist[5]);
-				drawPoints();
-			};
-			setInterval("Initclock()", 1000);
+			 //	var opt={
+			 //		marginX:number,
+			 //		marginY:number,
+			 //		lineLength:number,
+			 //		lineBorder:Number,
+			 //		strokeStyle: String     ("#000",red)
+			 //	}
+			DClock.InitWithCanvas(document.getElementById("clock"), {
+				"marginX": 10,
+				"marginY": 10,
+				"lineLength": 50,
+				"lineBorder": 8,
+				"strokeStyle": "black"
+			});
+			console.log(DClock);
+			setInterval("DClock.Initclock();", 1000);
 		</script>
 	</body>
 
