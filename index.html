@@ -14,7 +14,7 @@
 			var clock = document.getElementById("clock");
 			var cxt = clock.getContext("2d");
 			var drawLineLen = 50;
-			var lineWidth = 10;
+			var lineWidth = 8;
 			var marginX = 10;
 			var marginY = 10;
 			var numMarign = 3 * lineWidth + drawLineLen;
@@ -43,16 +43,31 @@
 			};
 			 //draw points
 			function point(x, y) {
-				cxt.lineWidth = 5;
+				cxt.lineWidth = 1;
 				cxt.strokeStyle = "#000";
 				cxt.fillStyle = "#000";
 				cxt.beginPath();
-				cxt.arc(x, y, 3, 0, 360, false);
+				cxt.arc(x, y, lineWidth / 2, 0, 360, false);
 				cxt.fill();
 				cxt.closePath();
 				cxt.stroke();
-			}; //init a digital number on canvas by setting the x,y location.
-			function digital(x, y) {
+			};
+			 //get datetime and setting the number
+			function showTime() {
+				var time = new Date();
+				var hh = time.getHours();
+				var mm = time.getMinutes();
+				var ss = time.getSeconds();
+				var h2 = hh % 10;
+				var h1 = (hh - h2)/10;
+				var m2 = mm % 10;
+				var m1 = (mm - m2)/10;
+				var s2 = ss % 10;
+				var s1 = (ss - s2)/10;
+				return [h1, h2, m1, m2, s1, s2];
+			};
+			 //init a digital number on canvas by setting the x,y location.
+			function digital(x, y, num) {
 				function line1() {
 					var _x = x + lineWidth;
 					var _y = y;
@@ -215,13 +230,11 @@
 					}
 				};
 
-				function randomNum() {
+				function showAnumber() {
 					cxt.clearRect(x, y, 2 * lineWidth + drawLineLen, 3 * lineWidth + 2 * drawLineLen);
-					var num = Math.round(Math.random() * 9);
-					console.log(num);
 					number(num);
 				};
-				randomNum();
+				showAnumber();
 			};
 
 			function drawPoints() {
@@ -232,15 +245,16 @@
 			};
 
 			function Initclock() {
-				digital(marginX, marginY);
-				digital(marginX + numMarign, marginY);
-				digital(marginX + 2 * numMarign + divPoint, marginY);
-				digital(marginX + 3 * numMarign + divPoint, marginY);
-				digital(marginX + 4 * numMarign + 2 * divPoint, marginY);
-				digital(marginX + 5 * numMarign + 2 * divPoint, marginY);
+				var numlist = showTime();
+				console.log(numlist);
+				digital(marginX, marginY, numlist[0]);
+				digital(marginX + numMarign, marginY, numlist[1]);
+				digital(marginX + 2 * numMarign + divPoint, marginY, numlist[2]);
+				digital(marginX + 3 * numMarign + divPoint, marginY, numlist[3]);
+				digital(marginX + 4 * numMarign + 2 * divPoint, marginY, numlist[4]);
+				digital(marginX + 5 * numMarign + 2 * divPoint, marginY, numlist[5]);
 				drawPoints();
 			};
-			 //var func = "digital(" + marginX + "," + marginY + ")";
 			setInterval("Initclock()", 1000);
 		</script>
 	</body>
